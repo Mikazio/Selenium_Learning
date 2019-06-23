@@ -1,5 +1,4 @@
 const {Builder, By, Key, until} = require('selenium-webdriver');
-//const TestInput = require('./Component/TextInputField');
 var assert = require('assert');
 var TargetPage = 'https://flyingdogz.github.io';
 describe('Login Page', function() {
