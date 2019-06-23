@@ -7,15 +7,15 @@ var TargetPage = 'https://flyingdogz.github.io';
 describe('Login Page', function() {
     let driver;
 
-    before(async function() {
-        driver = await new Builder().forBrowser('chrome').build();
-        await driver.get('https://flyingdogz.github.io');
-    });
-
-    // this.beforeEach(async function() {
+    // before(async function() {
     //     driver = await new Builder().forBrowser('chrome').build();
     //     await driver.get('https://flyingdogz.github.io');
     // });
+
+    this.beforeEach(async function() {
+        driver = await new Builder().forBrowser('chrome').build();
+        await driver.get('https://flyingdogz.github.io');
+    });
 
     it('LP-F1-Both', async function(){
         const usernameSelector = By.name('username');
@@ -86,7 +86,7 @@ describe('Login Page', function() {
         assert.equal('Add new user', error);
     });
 
-    after(async function() {
+    afterEach(async function() {
         await driver.quit();
     });
 });
@@ -94,7 +94,7 @@ describe('Login Page', function() {
 describe('List Page', function() {
     let driver;
 
-    before(async function() {
+    beforeEach(async function() {
         driver = await new Builder().forBrowser('chrome').build();
         const usernameSelector = By.name('username');
         const passwordSelector = By.name('password');
@@ -136,15 +136,19 @@ describe('List Page', function() {
         await assert.notEqual(true, result);
     });
 
-    it('List-Add-F1-Password', async function(){
+    it('List-Delete-P', async function(){
         const Deletebutton = By.xpath('/html/body/app-root/div/div/div/user-list/div[1]/div[2]/table/tbody/tr[1]/td[2]/button');
         await driver.wait(until.elementsLocated(Deletebutton), 5000);
         await driver.findElement(Deletebutton).click();
-        const result = await driver.findElement(By.xpath('/html/body/app-root/div/div/div/user-list/div[1]/div[2]/table/tbody/tr[1]/td[1]'));
-        await assert.notEqual(true, result);
+        try{
+            const result = await driver.findElement(By.xpath('/html/body/app-root/div/div/div/user-list/div[1]/div[2]/table/tbody/tr[1]/td[1]')).isDisplayed();
+            return false;
+        } finally {
+            return true;
+        }
     });
 
-    after(async function() {
+    afterEach(async function() {
         await driver.quit();
     });
 
