@@ -118,6 +118,7 @@ describe('List Page', function() {
         await driver.findElement(Deletebutton).click();
         try{
             const result = await driver.findElement(By.xpath('/html/body/app-root/div/div/div/user-list/div[1]/div[2]/table/tbody/tr[1]/td[1]')).isDisplayed();
+            //it shouldn't find that elements
             return false;
         } finally {
             return true;
